@@ -126,3 +126,15 @@ function build_extra_download() {
 }
 
 build_extra_start
+
+function build_opengl_setup() {
+    apt-get -y install libglvnd-dev mesa-utils
+    mkdir -pm755 /usr/share/glvnd/egl_vendor.d/ && echo "{\
+        \"file_format_version\" : \"1.0.0\",\
+        \"ICD\": {\
+            \"library_path\": \"libEGL_nvidia.so.0\"\
+        }\
+    }" > /usr/share/glvnd/egl_vendor.d/10_nvidia.json
+}
+
+build_opengl_setup
